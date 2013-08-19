@@ -308,6 +308,11 @@ func (pd *PdfReaderT) ForcedArray(reference []byte) [][]byte {
   return Array(nr)
 }
 
+func (pd *PdfReaderT) PageCount() int {
+  pages := pd.Dic(pd.Dic(pd.Trailer["/Root"])["/Pages"])
+  return pd.Num(pages["/Count"])
+}
+
 // pd.Pages() returns an array with references to the pages of the PDF.
 func (pd *PdfReaderT) Pages() [][]byte {
   if pd.pages != nil {
